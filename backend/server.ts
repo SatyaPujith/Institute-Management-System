@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { connectDB, getDB, ObjectId } from './server/db.js';
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET!;
 
 if (!JWT_SECRET) {
   console.error('❌ JWT_SECRET environment variable is required');
@@ -20,9 +20,9 @@ async function startServer() {
   app.use(cors({
     origin: process.env.NODE_ENV === 'production' 
       ? [
-          process.env.FRONTEND_URL,
+          process.env.FRONTEND_URL!,
           /https:\/\/.*\.vercel\.app$/  // Allow all Vercel preview deployments
-        ]
+        ].filter(Boolean)
       : ['http://localhost:5173'],
     credentials: true
   }));
@@ -1059,7 +1059,7 @@ async function startServer() {
     console.log('📡 API Server ready');
   }
 
-  const PORT = process.env.PORT || 3000;
+  const PORT = parseInt(process.env.PORT || '3000', 10);
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 Server running on port ${PORT}`);
   });
