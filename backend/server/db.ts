@@ -16,7 +16,19 @@ let client: MongoClient;
 
 export async function connectDB() {
   try {
-    client = new MongoClient(MONGODB_URI);
+    // MongoDB connection options for better compatibility with hosting platforms
+    const options = {
+      retryWrites: true,
+      w: 'majority' as const,
+      ssl: true,
+      tlsAllowInvalidCertificates: false,
+      tlsAllowInvalidHostnames: false,
+      serverSelectionTimeoutMS: 30000, // 30 seconds
+      connectTimeoutMS: 30000, // 30 seconds
+      socketTimeoutMS: 30000, // 30 seconds
+    };
+
+    client = new MongoClient(MONGODB_URI, options);
     await client.connect();
     db = client.db('institute_management');
     console.log('✅ Connected to MongoDB');
