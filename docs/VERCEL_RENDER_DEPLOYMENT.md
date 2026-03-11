@@ -31,20 +31,31 @@ This guide shows you how to deploy the frontend to Vercel and backend to Render 
 3. Configure the service:
    - **Name**: `forex-institute-backend` (or your choice)
    - **Environment**: `Node`
-   - **Build Command**: `npm install`
+   - **Root Directory**: `backend` (important!)
+   - **Build Command**: `npm install && npm run build`
    - **Start Command**: `npm start`
    - **Instance Type**: `Free` (for testing) or `Starter` (for production)
 
-### 1.3 Set Environment Variables
-In Render dashboard, add these environment variables:
+**⚠️ Important**: The backend now includes TypeScript compilation. Make sure your `package.json` has TypeScript and type definitions in `dependencies` (not `devDependencies`) for the build to work on Render.
 
+### 1.3 Set Environment Variables ⚠️ **CRITICAL STEP**
+In Render dashboard, add these environment variables (the server won't start without them):
+
+**Required:**
 ```env
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/database_name
+MONGODB_URI=mongodb+srv://satyapujith:Satya%409100@cluster0.qtr33fw.mongodb.net/institute_management
 JWT_SECRET=your-super-secret-jwt-key-minimum-32-characters
-RAZORPAY_KEY_ID=your_razorpay_key_id
-RAZORPAY_KEY_SECRET=your_razorpay_key_secret
 NODE_ENV=production
 ```
+
+**Optional:**
+```env
+RAZORPAY_KEY_ID=your_razorpay_key_id
+RAZORPAY_KEY_SECRET=your_razorpay_key_secret
+FRONTEND_URL=https://your-frontend-app.vercel.app
+```
+
+**⚠️ Important**: Generate a secure JWT_SECRET (at least 32 characters). The server will exit with status 1 if these variables are missing.
 
 ### 1.4 Deploy Backend
 1. Click "Create Web Service"
@@ -140,6 +151,7 @@ app.use(cors({
 2. Import your GitHub repository
 3. Configure project:
    - **Framework Preset**: `Vite`
+   - **Root Directory**: `frontend` (important!)
    - **Build Command**: `npm run build`
    - **Output Directory**: `dist`
    - **Install Command**: `npm install`
