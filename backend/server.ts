@@ -16,10 +16,27 @@ async function startServer() {
   const db = getDB();
 
   const app = express();
-  const PORT = 3000;
 
-  app.use(cors());
+  app.use(cors({
+    origin: process.env.NODE_ENV === 'production' 
+      ? [
+          process.env.FRONTEND_URL,
+          /https:\/\/.*\.vercel\.app$/  // Allow all Vercel preview deployments
+        ]
+      : ['http://localhost:5173'],
+    credentials: true
+  }));
   app.use(express.json());
+
+  // Health check endpoint
+  app.get('/health', (req, res) => {
+    res.json({ 
+      status: 'OK', 
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+      environment: process.env.NODE_ENV || 'development'
+    });
+  });
 
   // --- Middleware ---
   const authenticateToken = (req: any, res: any, next: any) => {
@@ -1033,16 +1050,18 @@ async function startServer() {
     res.json({ success: true, message: 'Payment verified successfully' });
   });
 
-  // Vite middleware for development
+  // Development vs Production logging
   if (process.env.NODE_ENV !== 'production') {
-    console.log('🎨 Frontend: Run "npm run frontend" in a separate terminal');
+    console.log('🎨 Development mode');
     console.log('📡 API Server ready at http://localhost:3000');
   } else {
-    app.use(express.static('dist'));
+    console.log('🚀 Production mode');
+    console.log('📡 API Server ready');
   }
 
+  const PORT = process.env.PORT || 3000;
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`🚀 Server running on port ${PORT}`);
   });
 }
 

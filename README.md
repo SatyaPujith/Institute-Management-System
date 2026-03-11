@@ -44,25 +44,21 @@ A modern, full-stack institute management system built for forex trading educati
    cd institute-management-system
    ```
 
-2. **Install dependencies**
+2. **Setup Backend**
    ```bash
+   cd backend
    npm install
+   cp .env.example .env
+   # Edit .env with your MongoDB URI, JWT secret, etc.
    ```
 
-3. **Configure environment**
+3. **Setup Frontend**
    ```bash
+   cd ../frontend
+   npm install
    cp .env.example .env
+   # Edit .env with your backend URL
    ```
-   
-   **⚠️ IMPORTANT: Edit `.env` with your actual credentials:**
-   ```env
-   MONGODB_URI=your_actual_mongodb_connection_string
-   JWT_SECRET=your_secure_jwt_secret_minimum_32_characters
-   RAZORPAY_KEY_ID=your_razorpay_key_id
-   RAZORPAY_KEY_SECRET=your_razorpay_key_secret
-   ```
-   
-   **🔒 Security Note:** Never commit the `.env` file or expose credentials in code. See [Security Guide](docs/SECURITY.md) for details.
 
 4. **Start the application**
    
@@ -70,12 +66,14 @@ A modern, full-stack institute management system built for forex trading educati
    
    **Terminal 1 - Backend:**
    ```bash
-   npm run backend
+   cd backend
+   npm run dev
    ```
    
    **Terminal 2 - Frontend:**
    ```bash
-   npm run frontend
+   cd frontend
+   npm run dev
    ```
 
 5. **Access the application**
@@ -118,18 +116,23 @@ A modern, full-stack institute management system built for forex trading educati
 
 ```
 institute-management-system/
-├── src/                      # Frontend source
-│   ├── components/          # Reusable components
-│   ├── context/            # React context (Auth)
-│   ├── pages/              # Page components
-│   │   ├── admin/         # Admin portal pages
-│   │   └── student/       # Student portal pages
-│   └── utils/             # Utility functions
-├── server/                  # Backend source
-│   └── db.ts              # Database connection & seeding
-├── server.ts               # Express server & API routes
-├── docs/                   # Documentation files
-└── public/                 # Static assets
+├── frontend/                    # React Frontend
+│   ├── src/                    # React components
+│   │   ├── components/        # Reusable components
+│   │   ├── context/          # React context (Auth)
+│   │   ├── pages/            # Page components
+│   │   │   ├── admin/       # Admin portal pages
+│   │   │   └── student/     # Student portal pages
+│   │   └── utils/           # Utility functions
+│   ├── package.json         # Frontend dependencies
+│   ├── vite.config.ts       # Vite configuration
+│   └── vercel.json          # Vercel deployment config
+├── backend/                     # Node.js Backend
+│   ├── server/              # Database connection & seeding
+│   ├── server.ts            # Express server & API routes
+│   └── package.json         # Backend dependencies
+├── docs/                       # Documentation files
+└── README.md                  # Project overview
 ```
 
 ## 📚 Documentation
@@ -147,6 +150,8 @@ Comprehensive documentation is available in the `docs/` folder:
 
 ### Security & Configuration
 - [Security Guide](docs/SECURITY.md) - **IMPORTANT: Read before deployment**
+- [Separate Deployment Guide](docs/SEPARATE_DEPLOYMENT.md) - **Deploy frontend & backend separately**
+- [Vercel + Render Deployment](docs/VERCEL_RENDER_DEPLOYMENT.md) - **Specific platform guide**
 - [Environment Setup](docs/SECURITY.md#environment-variables) - Required environment variables
 ### Technical Documentation
 ### Technical Documentation
@@ -197,18 +202,21 @@ Changes made by admins reflect immediately in student portals:
 
 ### Available Scripts
 
+**Backend:**
 ```bash
-# Start backend server (port 3000)
-npm run backend
+cd backend
+npm run dev      # Start backend development server
+npm start        # Start backend production server
+npm run lint     # Check TypeScript errors
+```
 
-# Start frontend dev server (port 5173)
-npm run frontend
-
-# Build for production
-npm run build
-
-# Run tests
-npm test
+**Frontend:**
+```bash
+cd frontend
+npm run dev      # Start frontend development server
+npm run build    # Build for production
+npm run preview  # Preview production build
+npm run lint     # Check TypeScript errors
 ```
 
 ### Database Seeding
