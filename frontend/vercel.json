@@ -3,6 +3,10 @@
     {
       "source": "/api/(.*)",
       "destination": "https://institute-management-system-3.onrender.com/api/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [
