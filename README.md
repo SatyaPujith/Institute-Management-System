@@ -54,13 +54,15 @@ A modern, full-stack institute management system built for forex trading educati
    cp .env.example .env
    ```
    
-   Edit `.env` with your credentials:
+   **⚠️ IMPORTANT: Edit `.env` with your actual credentials:**
    ```env
-   MONGODB_URI=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret_key
-   RAZORPAY_KEY_ID=your_razorpay_key
-   RAZORPAY_KEY_SECRET=your_razorpay_secret
+   MONGODB_URI=your_actual_mongodb_connection_string
+   JWT_SECRET=your_secure_jwt_secret_minimum_32_characters
+   RAZORPAY_KEY_ID=your_razorpay_key_id
+   RAZORPAY_KEY_SECRET=your_razorpay_key_secret
    ```
+   
+   **🔒 Security Note:** Never commit the `.env` file or expose credentials in code. See [Security Guide](docs/SECURITY.md) for details.
 
 4. **Start the application**
    
@@ -143,10 +145,13 @@ Comprehensive documentation is available in the `docs/` folder:
 - [Complete User Guide](docs/COMPLETE_USER_GUIDE.md) - Full system walkthrough
 - [Quick Reference](docs/QUICK_REFERENCE.md) - Common tasks and shortcuts
 
+### Security & Configuration
+- [Security Guide](docs/SECURITY.md) - **IMPORTANT: Read before deployment**
+- [Environment Setup](docs/SECURITY.md#environment-variables) - Required environment variables
+### Technical Documentation
 ### Technical Documentation
 - [Multi-Course Enrollment](docs/MULTI_COURSE_ENROLLMENT.md) - Enrollment system architecture
 - [Migration Guide](docs/MIGRATION_GUIDE.md) - Database migration details
-- [Specification Compliance](docs/SPECIFICATION_COMPLIANCE.md) - Requirements compliance
 
 ### Troubleshooting
 - [Backend Restart Guide](docs/RESTART_BACKEND.md) - Fix 404 errors

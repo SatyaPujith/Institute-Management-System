@@ -4,7 +4,12 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { connectDB, getDB, ObjectId } from './server/db.js';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'super-secret-jwt-key-for-dev';
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!JWT_SECRET) {
+  console.error('❌ JWT_SECRET environment variable is required');
+  process.exit(1);
+}
 
 async function startServer() {
   await connectDB();
@@ -972,7 +977,7 @@ async function startServer() {
       order_id: orderId,
       amount: amountInPaise,
       currency: 'INR',
-      key: process.env.RAZORPAY_KEY_ID || 'rzp_test_key'
+      key: process.env.RAZORPAY_KEY_ID
     });
   });
 
