@@ -354,34 +354,6 @@ Contributions are welcome! Please follow these steps:
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 🙏 Acknowledgments
-
-- React and the React team
-- MongoDB for the database
-- Razorpay for payment processing
-- Tailwind CSS for styling
-- Lucide for beautiful icons
-
-## 📞 Support
-
-For issues, questions, or contributions:
-- Open an issue on GitHub
-- Check the [documentation](docs/)
-- Review [troubleshooting guides](docs/TEST_BACKEND.md)
-
-## 🗺️ Roadmap
-
-- [ ] Email notifications
-- [ ] SMS integration
-- [ ] Certificate generation
-- [ ] Advanced analytics dashboard
-- [ ] Mobile app (React Native)
-- [ ] Video conferencing integration
-- [ ] Assignment submission system
-- [ ] Quiz and assessment module
-- [ ] Discussion forums
-- [ ] Multi-language support
-
 ---
 
 **Built with ❤️ for forex trading education**
